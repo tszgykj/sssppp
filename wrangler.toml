@@ -5,10 +5,10 @@ minify = true
 workers_dev = true
 
 [build]
-command = "cargo install -q worker-build && worker-build --release"
+command = "cargo install -q worker-build@=0.1.0 && worker-build --release"
 
 [env.dev]
-build = { command = "cargo install -q worker-build && worker-build --dev" }
+build = { command = "cargo install -q worker-build@=0.1.0 && worker-build --dev" }
 
 [vars]
 UUID = "f8b3204d-397e-4b52-973b-4fbc15f7277f"
