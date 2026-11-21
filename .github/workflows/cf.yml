@@ -25,6 +25,9 @@ jobs:
       - name: Cache cargo
         uses: Swatinem/rust-cache@v2
 
+      - name: Install worker-build
+        run: cargo install worker-build --version 0.1.0
+
       - name: Deploy
         run: npx --yes wrangler@4 deploy
         env:
