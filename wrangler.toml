@@ -11,8 +11,8 @@ command = "cargo install -q worker-build && worker-build --release"
 build = { command = "cargo install -q worker-build && worker-build --dev" }
 
 [vars]
-UUID = "00000000-0000-0000-0000-000000000000"
-MAIN_PAGE_URL = "https://raw.githubusercontent.com/SherlyKinan/inconigto-vpn/refs/heads/main/web/index.html"
-SUB_PAGE_URL = "https://raw.githubusercontent.com/SherlyKinan/inconigto-vpn/refs/heads/main/web/sub.html"
+UUID = "f8b3204d-397e-4b52-973b-4fbc15f7277f"
+MAIN_PAGE_URL = "https://raw.githubusercontent.com/tszgykj/sssppp/refs/heads/main/web/index.html"
+SUB_PAGE_URL = "https://raw.githubusercontent.com/tszgykj/sssppp/refs/heads/main/web/sub.html"
 
 
