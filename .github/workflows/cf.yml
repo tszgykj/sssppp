@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - master
+      - main
     paths-ignore:
       - 'README.md'
       - 'LICENSE.md'
@@ -13,10 +14,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: cf
     steps:
       - uses: actions/checkout@v4
-      - name: deploy
-        uses: cloudflare/wrangler-action@v3
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
         with:
-          apiToken: 
+          targets: wasm32-unknown-unknown
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Deploy
+        run: npx --yes wrangler@4 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          WRANGLER_LOG: debug
