@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Inconigto-Mode</title>
+<title>KuyShare - V2Ray</title>
 <link rel="icon" href="https://raw.githubusercontent.com/AFRcloud/BG/main/icons8-film-noir-80.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -341,7 +341,7 @@ body {
                 <div class="mr-3">
                     <i class="fas fa-network-wired text-4xl text-indigo-400"></i>
                 </div>
-                <h1 class="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">Inconigto-Mode</h1>
+                <h1 class="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">KuyShare - V2Ray</h1>
             </div>
         </div>
         
@@ -367,7 +367,7 @@ body {
                     <div class="flex">
                         <input type="text" id="proxy-url" class="flex-1 px-4 py-2.5 input rounded-l-lg text-sm" 
                             placeholder="Enter custom proxy list URL" 
-                            value="https://raw.githubusercontent.com/InconigtoMode/proxylist/refs/heads/main/all.txt">
+                            value="https://proxy.kuyshare.eu.org/active.txt">
                         <button id="load-custom-url" class="btn-primary px-4 py-2.5 rounded-r-lg">
                             Load
                         </button>
@@ -673,7 +673,7 @@ body {
                                     <option value="tls">TLS</option>
                                     <option value="none">None</option>
                                 </select>
-                                <input type="hidden" id="trojan-sni" name="sni" value="inconigto-mode.web.id">
+                                <input type="hidden" id="trojan-sni" name="sni" value="v.vles.tech">
                             </div>
                             
                             <div>
@@ -817,20 +817,14 @@ body {
                 <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center mr-3 border border-indigo-500/20">
                     <i class="fas fa-network-wired text-lg text-indigo-400"></i>
                 </div>
-                <span class="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">Inconigto-Mode</span>
+                <span class="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">KuyShare- V2Ray</span>
             </div>
             
             <div class="flex gap-4">
-                <a href="#" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
-                    <i class="fab fa-github"></i>
+                <a href="://facebook.com/rilisanterbaru" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
+                    <i class="fab fa-facebook"></i>
                 </a>
-                <a href="https://t.me/InconigtoMode" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="https://t.me/Noir7R" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="https://t.me/Inconigto_Mode" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
+                <a href="https://t.me/kuyshare" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
                     <i class="fab fa-telegram"></i>
                 </a>
             </div>
@@ -839,7 +833,7 @@ body {
         <div class="h-px bg-gradient-to-r from-transparent via-slate-600/20 to-transparent my-5"></div>
         
         <div class="text-center text-gray-500 text-xs">
-            <p>© 2025 Inconigto-Mode | Secure Connection Technology</p>
+            <p>© 2025 KuyShare - V2Ray</p>
             <p class="mt-1 flex items-center justify-center">
                 Dibuat dengan 
                 <i class="fas fa-heart text-rose-500 mx-1"></i> 
@@ -864,11 +858,11 @@ body {
             <i class="fas fa-times"></i>
         </button>
         
-        <h3 class="text-xl font-bold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Support Inconigto-Mode</h3>
+        <h3 class="text-xl font-bold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Suppor:</h3>
         <p class="text-gray-400 text-sm mb-4 text-center">Your donation helps keep our services running</p>
         
         <div class="p-3 bg-white rounded-xl mb-4">
-            <img src="https://raw.githubusercontent.com/InconigtoMode/inconigto-vpn/refs/heads/main/web/qris.png" alt="Donation QR Code" class="w-full h-auto max-w-xs mx-auto">
+            <img src="https://telegra.ph/file/1e30ae8616d1fd0bc3c48.png" alt="Donation QR Code" class="w-full h-auto max-w-xs mx-auto">
         </div>
         
         <p class="text-gray-400 text-xs text-center">Scan this QR code with your payment app to donate</p>
@@ -880,8 +874,8 @@ body {
 let proxyList = [];
 let filteredProxyList = [];
 let selectedProxy = null;
-const defaultProxyUrl = 'https://raw.githubusercontent.com/InconigtoMode/proxylist/refs/heads/main/all.txt';
-const serverDomains = ['inconigto-mode.web.id', 'inconigto-mode.biz.id'];
+const defaultProxyUrl = 'https://proxy.kuyshare.eu.org/active.txt';
+const serverDomains = ['v.vles.tech'];
 let selectedServerDomain = serverDomains[0]; // Default to first domain
 const defaultUUID = '00000000-0000-0000-0000-000000000000';
 const itemsPerPage = 10;
@@ -1647,7 +1641,7 @@ async function selectProxy(index) {
     
     // Update form fields
     const accountName = `${selectedProxy.country} - ${selectedProxy.provider}`;
-    const path = `/Inconigto-Mode/${selectedProxy.ip}-${selectedProxy.port}`;
+    const path = `/${selectedProxy.ip}-${selectedProxy.port}`;
     
     document.getElementById('vmess-name').value = accountName;
     document.getElementById('vless-name').value = accountName;

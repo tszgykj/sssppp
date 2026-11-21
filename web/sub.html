@@ -2,397 +2,220 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Inconigto-Mode</title>
+<title>KuyShare - V2Ray</title>
 <link rel="icon" href="https://raw.githubusercontent.com/AFRcloud/BG/main/icons8-film-noir-80.png">
-<meta property="og:image:secure_url" content="https://raw.githubusercontent.com/akulelaki696/bg/refs/heads/main/20250106_010158.jpg"/>
-<meta property="og:audio" content="URL-to-audio-if-any"/>
-<meta property="og:video" content="URL-to-video-if-any"/>
-<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)"/>
-<meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- QR Code Library -->
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-<!-- Add Inter font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
-    :root {
-        --primary: #6366f1;
-        --primary-dark: #4f46e5;
-        --primary-light: #818cf8;
-        --secondary: #10b981;
-        --secondary-dark: #059669;
-        --accent: #f43f5e;
-        --dark: #0f172a;
-        --dark-light: #1e293b;
-        --light: #f8fafc;
-        --gray: #64748b;
-        --gray-light: #94a3b8;
-        --gray-dark: #334155;
-    }
-    
-    * {
-        font-family: 'Inter', sans-serif;
-    }
-    
-    body {
-        background-color: var(--dark);
-        background-image: 
-            radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 90% 10%, rgba(244, 63, 94, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 10% 90%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
-        color: var(--light);
-        min-height: 100vh;
-    }
-    
-    .glass-card {
-        background: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(99, 102, 241, 0.2);
-        box-shadow: 
-            0 10px 15px -3px rgba(0, 0, 0, 0.1),
-            0 4px 6px -2px rgba(0, 0, 0, 0.05),
-            0 0 0 1px rgba(99, 102, 241, 0.1);
-        border-radius: 16px;
-    }
-    
-    .glass-input {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(99, 102, 241, 0.2);
-        color: var(--light);
-        transition: all 0.3s ease;
-        border-radius: 8px;
-    }
-    
-    .glass-input:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
-        background: rgba(15, 23, 42, 0.8);
-    }
-    
-    .glass-input[readonly] {
-        background: rgba(51, 65, 85, 0.4);
-    }
-    
-    .glass-select {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(99, 102, 241, 0.2);
-        color: var(--light);
-        border-radius: 8px;
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        background-size: 1rem;
-        padding-right: 2.5rem;
-    }
-    
-    .glass-select:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
-        background-color: rgba(15, 23, 42, 0.8);
-    }
-    
-    .primary-btn {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2), 0 2px 4px -1px rgba(99, 102, 241, 0.1);
-    }
-    
-    .primary-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: all 0.6s ease;
-    }
-    
-    .primary-btn:hover::before {
-        left: 100%;
-    }
-    
-    .primary-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 10px -1px rgba(99, 102, 241, 0.3), 0 2px 4px -1px rgba(99, 102, 241, 0.2);
-    }
-    
-    .secondary-btn {
-        background: rgba(51, 65, 85, 0.6);
-        border: 1px solid rgba(99, 102, 241, 0.2);
-        color: var(--light);
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    .secondary-btn:hover {
-        background: rgba(71, 85, 105, 0.7);
-        transform: translateY(-1px);
-    }
-    
-    .tab-btn {
-        position: relative;
-        transition: all 0.3s ease;
-        font-weight: 500;
-        color: var(--gray-light);
-    }
-    
-    .tab-btn.active {
-        color: var(--primary-light);
-    }
-    
-    .tab-btn.active::after {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, var(--primary), var(--primary-light));
-        box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
-        border-radius: 2px;
-    }
-    
-    .tab-btn:not(.active):hover {
-        color: var(--light);
-    }
-    
-    .glow-text {
-        text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-    }
-    
-    .divider {
-        height: 1px;
-        background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    }
-    
-    .glass-code {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(99, 102, 241, 0.2);
-        font-family: 'Courier New', monospace;
-        border-radius: 8px;
-    }
-    
-    @keyframes pulse {
-        0% { opacity: 0.6; }
-        50% { opacity: 1; }
-        100% { opacity: 0.6; }
-    }
-    
-    .pulse-animation {
-        animation: pulse 2s infinite ease-in-out;
-    }
-    
-    .loading-spinner {
-        border: 3px solid rgba(51, 65, 85, 0.3);
-        border-top: 3px solid var(--primary);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-    }
-    
-    .loading-spinner-sm {
-        border: 2px solid rgba(51, 65, 85, 0.3);
-        border-top: 2px solid var(--primary);
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        animation: spin 1s linear infinite;
-    }
-    
-    .loading-spinner-xs {
-        border: 1px solid rgba(51, 65, 85, 0.3);
-        border-top: 1px solid var(--primary);
-        border-radius: 50%;
-        width: 12px;
-        height: 12px;
-        animation: spin 1s linear infinite;
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 4px;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    /* Card styles */
-    .proxy-card {
-        background: rgba(30, 41, 59, 0.5);
-        border-radius: 12px;
-        padding: 0.75rem;
-        margin-bottom: 0.75rem;
-        border: 1px solid rgba(99, 102, 241, 0.1);
-        transition: all 0.3s ease;
-    }
-    
-    .proxy-card:hover {
-        background: rgba(51, 65, 85, 0.5);
-        border-color: rgba(99, 102, 241, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-    
-    /* Pagination styles */
-    .pagination-btn {
-        min-width: 36px;
-        height: 36px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        font-size: 0.875rem;
-        transition: all 0.3s ease;
-        background: rgba(51, 65, 85, 0.4);
-        border: 1px solid rgba(99, 102, 241, 0.1);
-    }
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #10b981;
+    --dark: #0f172a;
+    --dark-light: #1e293b;
+    --light: #f8fafc;
+    --gray: #64748b;
+    --gray-light: #94a3b8;
+}
 
-    .pagination-btn.active {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white;
-        border: none;
-    }
+* {
+    font-family: 'Inter', sans-serif;
+}
 
-    .pagination-btn:not(.active):not(.disabled):hover {
-        background: rgba(71, 85, 105, 0.5);
-        border-color: rgba(99, 102, 241, 0.3);
-    }
+body {
+    background-color: var(--dark);
+    color: var(--light);
+    min-height: 100vh;
+}
 
-    .pagination-btn.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
+.card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
 
-    /* QR Code container */
-    .qrcode-container {
-        background-color: white;
-        padding: 12px;
-        border-radius: 12px;
-        display: inline-block;
-        margin: 0 auto;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
+.input {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    color: var(--light);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
 
-    .qrcode-container img, 
-    .qrcode-container canvas {
-        display: block;
-        max-width: 100%;
-        height: auto;
-    }
-    
-    /* Info cards */
-    .info-card {
-        background: rgba(15, 23, 42, 0.5);
-        border-radius: 8px;
-        padding: 0.75rem;
-        border: 1px solid rgba(99, 102, 241, 0.1);
-    }
-    
-    /* Animated background for header */
-    .animated-bg {
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px 12px 0 0;
-        padding: 2rem 0;
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
-    }
-    
-    .animated-bg::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            to bottom right,
-            rgba(99, 102, 241, 0),
-            rgba(99, 102, 241, 0.1),
-            rgba(16, 185, 129, 0.1),
-            rgba(16, 185, 129, 0)
-        );
-        transform: rotate(30deg);
-        animation: shimmer 10s linear infinite;
-    }
-    
-    @keyframes shimmer {
-        0% {
-            transform: rotate(30deg) translate(-50%, -50%);
-        }
-        100% {
-            transform: rotate(30deg) translate(50%, 50%);
-        }
-    }
-    
-    /* Icon styles */
-    .icon-glow {
-        filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.5));
-    }
-    
-    /* Status badge styles */
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        font-size: 0.7rem;
-        padding: 0.15rem 0.4rem;
-        border-radius: 9999px;
-        margin-left: 0.5rem;
-        vertical-align: middle;
-    }
-    
-    .status-badge.loading {
-        background-color: rgba(99, 102, 241, 0.2);
-        color: #818cf8;
-    }
-    
-    .status-badge.active {
-        background-color: rgba(16, 185, 129, 0.2);
-        color: #34d399;
-    }
-    
-    .status-badge.dead {
-        background-color: rgba(239, 68, 68, 0.2);
-        color: #f87171;
-    }
-    
-    .status-badge.unknown {
-        background-color: rgba(245, 158, 11, 0.2);
-        color: #fbbf24;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-        .tab-btn {
-            padding: 0.5rem 0.75rem;
-            font-size: 0.75rem;
-        }
-        
-        .tab-btn i {
-            margin-right: 0.25rem;
-        }
-        
-        .pagination-btn {
-            min-width: 32px;
-            height: 32px;
-            font-size: 0.75rem;
-        }
-    }
+.input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
 
-/* Custom Bug dan Wildcard styles */
+.input[readonly] {
+    background: rgba(51, 65, 85, 0.3);
+}
+
+.select {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    color: var(--light);
+    border-radius: 8px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
+.select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    background: rgba(51, 65, 85, 0.5);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    color: var(--light);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(71, 85, 105, 0.6);
+}
+
+.tab {
+    position: relative;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: var(--gray-light);
+}
+
+.tab.active {
+    color: var(--primary);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.code {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    font-family: 'Courier New', monospace;
+    border-radius: 8px;
+}
+
+.loading-spinner {
+    border: 3px solid rgba(51, 65, 85, 0.3);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+.loading-spinner-sm {
+    border: 2px solid rgba(51, 65, 85, 0.3);
+    border-top: 2px solid var(--primary);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.proxy-card {
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 10px;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    transition: all 0.2s ease;
+}
+
+.proxy-card:hover {
+    background: rgba(51, 65, 85, 0.4);
+    border-color: rgba(99, 102, 241, 0.2);
+    transform: translateY(-2px);
+}
+
+.pagination-btn {
+    min-width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    background: rgba(51, 65, 85, 0.3);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.pagination-btn.active {
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+.pagination-btn:not(.active):not(.disabled):hover {
+    background: rgba(71, 85, 105, 0.4);
+}
+
+.pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.qrcode-container {
+    background-color: white;
+    padding: 12px;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.qrcode-container img, 
+.qrcode-container canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 .wildcard-container {
     display: none;
     margin-top: 0.5rem;
@@ -422,195 +245,28 @@
     color: var(--gray-light);
 }
 
-/* Enhanced Responsive Styles */
-@media (max-width: 768px) {
-    .container {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
-    }
-    
-    .glass-card {
-        border-radius: 12px;
-    }
-    
-    .animated-bg {
-        padding: 1.5rem 0;
-    }
-    
-    h1.text-3xl {
-        font-size: 1.75rem;
-    }
-    
-    .proxy-card {
-        padding: 0.5rem;
-    }
-    
-    .create-account-btn {
-        padding: 0.375rem 0.75rem;
-        font-size: 0.7rem;
-    }
-    
-    #proxy-basic-info {
-        grid-template-columns: 1fr;
-    }
-    
-    .glass-input, .glass-select {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-    
-    .tab-btn {
-        padding: 0.5rem;
-        font-size: 0.7rem;
-    }
-    
-    .tab-btn i {
-        margin-right: 0.25rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-    }
-    
-    h1.text-3xl {
-        font-size: 1.5rem;
-    }
-    
-    .flex.space-x-3 {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .flex.space-x-3 > * {
-        width: 100%;
-    }
-    
-    .mt-6.flex.space-x-3 {
-        flex-direction: row;
-    }
-    
-    .tab-btn {
-        padding: 0.375rem;
-        font-size: 0.65rem;
-    }
-    
-    .tab-btn i {
-        margin-right: 0.125rem;
-    }
-    
-    .qrcode-container {
-        padding: 8px;
-    }
-    
-    .qrcode-container canvas,
-    .qrcode-container img {
-        max-width: 150px;
-        height: auto;
-    }
-    
-    footer .flex.flex-wrap {
-        gap: 0.5rem;
-    }
-}
-
-/* Touch-friendly improvements */
-@media (hover: none) {
-    .primary-btn, .secondary-btn, .pagination-btn, button {
-        min-height: 44px; /* Minimum touch target size */
-    }
-    
-    input, select {
-        min-height: 44px;
-    }
-    
-    .checkbox-container input[type="checkbox"] {
-        width: 1.25rem;
-        height: 1.25rem;
-    }
-}
-
-/* Enhanced info cards */
-.info-card {
-    background: rgba(15, 23, 42, 0.5);
-    border-radius: 8px;
-    padding: 0.75rem;
-    border: 1px solid rgba(99, 102, 241, 0.1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
-}
-
-.info-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
-}
-
-/* Enhanced status styles */
 .status-active {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .status-dead {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(185, 28, 28, 0.1));
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .status-unknown {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(180, 83, 9, 0.1));
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
-}
-
-/* Donation button and modal styles */
-@keyframes spin-slow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.animate-spin-slow {
-    animation: spin-slow 8s linear infinite;
-}
-
-.qris-container {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-}
-
-#donation-button {
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-    }
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 @media (max-width: 640px) {
-    /* Force flex row layout for proxy cards on mobile */
     .proxy-card .flex {
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
     }
     
-    /* Adjust proxy info container */
     .proxy-card .flex > div:first-child {
         flex: 1;
         min-width: 0;
@@ -618,7 +274,6 @@
         padding-right: 8px;
     }
     
-    /* Ensure text truncation for long provider names */
     .proxy-card .font-medium {
         max-width: 150px;
         white-space: nowrap;
@@ -627,7 +282,6 @@
         display: block;
     }
     
-    /* Make details text smaller on mobile */
     .proxy-card .text-xs {
         font-size: 0.65rem;
         white-space: nowrap;
@@ -635,40 +289,59 @@
         text-overflow: ellipsis;
     }
     
-    /* Adjust create button size */
     .create-account-btn {
         padding: 0.375rem 0.5rem !important;
         font-size: 0.65rem !important;
         min-width: 60px !important;
         width: auto !important;
     }
-    
-    /* Fix status indicator position */
-    .proxy-card .flex-items-center {
-        display: flex !important;
-        align-items: center !important;
-        position: relative !important;
-    }
-    
-    /* Ensure status indicator stays in place */
-    .proxy-card .inline-block {
-        position: static !important;
-        margin-left: 4px !important;
-        flex-shrink: 0 !important;
-    }
+}
+
+.header {
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem 0;
+    background: linear-gradient(to right, rgba(79, 70, 229, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+}
+
+.footer {
+    background: rgba(15, 23, 42, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.donation-btn {
+    background: var(--primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.donation-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: linear-gradient(to bottom, #1e293b, #0f172a);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
 }
 </style>
 </head>
 <body class="font-sans">
 <div class="container mx-auto px-2 sm:px-4 py-4 sm:py-6 max-w-xl">
-    <div class="glass-card overflow-hidden">
-        <!-- Animated header background -->
-        <div class="animated-bg">
+    <div class="card overflow-hidden">
+        <!-- Header -->
+        <div class="header">
             <div class="flex items-center justify-center">
                 <div class="mr-3">
-                    <i class="fas fa-network-wired text-4xl icon-glow text-indigo-400"></i>
+                    <i class="fas fa-network-wired text-4xl text-indigo-400"></i>
                 </div>
-                <h1 class="text-3xl font-bold text-center glow-text bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">Inconigto-Mode</h1>
+                <h1 class="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">KuyShare - V2Ray</h1>
             </div>
         </div>
         
@@ -681,10 +354,10 @@
                         <h2 class="text-xl font-semibold">Proxy List</h2>
                     </div>
                     <div class="flex flex-col sm:flex-row w-full sm:w-auto space-y-2 sm:space-y-0 sm:space-x-3">
-                        <button id="refresh-btn" class="primary-btn py-2 px-4 rounded-lg flex items-center justify-center text-sm">
+                        <button id="refresh-btn" class="btn-primary py-2 px-4 rounded-lg flex items-center justify-center text-sm">
                             <i class="fas fa-sync-alt mr-2"></i>Refresh
                         </button>
-                        <button id="custom-url-btn" class="secondary-btn py-2 px-4 rounded-lg flex items-center justify-center text-sm">
+                        <button id="custom-url-btn" class="btn-secondary py-2 px-4 rounded-lg flex items-center justify-center text-sm">
                             <i class="fas fa-link mr-2"></i>URL
                         </button>
                     </div>
@@ -692,10 +365,10 @@
                 
                 <div id="custom-url-input" class="mb-5 hidden">
                     <div class="flex">
-                        <input type="text" id="proxy-url" class="flex-1 px-4 py-2.5 glass-input rounded-l-lg text-sm" 
+                        <input type="text" id="proxy-url" class="flex-1 px-4 py-2.5 input rounded-l-lg text-sm" 
                             placeholder="Enter custom proxy list URL" 
-                            value="https://raw.githubusercontent.com/InconigtoMode/proxylist/refs/heads/main/all.txt">
-                        <button id="load-custom-url" class="primary-btn px-4 py-2.5 rounded-r-lg">
+                            value="https://proxy.kuyshare.eu.org/active.txt">
+                        <button id="load-custom-url" class="btn-primary px-4 py-2.5 rounded-r-lg">
                             Load
                         </button>
                     </div>
@@ -709,7 +382,7 @@
                 <!-- Search input -->
                 <div class="mb-4">
                     <div class="relative">
-                        <input type="text" id="search-input" class="w-full pl-10 pr-4 py-2.5 glass-input rounded-lg text-sm" placeholder="Search by provider or country...">
+                        <input type="text" id="search-input" class="w-full pl-10 pr-4 py-2.5 input rounded-lg text-sm" placeholder="Search by provider or country...">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-400"></i>
                         </div>
@@ -751,109 +424,106 @@
                         </button>
                     </div>
                     
-                    <div class="glass-card p-5 mb-6 overflow-hidden relative">
-    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-indigo-500/5 to-transparent rounded-bl-full pointer-events-none"></div>
-    
-    <h3 class="text-base font-medium text-indigo-400 mb-4 flex items-center">
-        <i class="fas fa-server mr-2"></i>
-        Selected Proxy
-    </h3>
-    
-    <div class="grid grid-cols-2 gap-3 mb-4">
-        <div class="flex items-center space-x-2 bg-slate-800/40 p-3 rounded-lg border border-slate-700/30">
-            <i class="fas fa-building text-indigo-400/70 w-5 text-center"></i>
-            <div>
-                <div class="text-xs text-gray-400">Provider</div>
-                <div id="selected-provider" class="text-sm font-medium text-white">-</div>
-            </div>
-        </div>
-        <div class="flex items-center space-x-2 bg-slate-800/40 p-3 rounded-lg border border-slate-700/30">
-            <i class="fas fa-globe-americas text-indigo-400/70 w-5 text-center"></i>
-            <div>
-                <div class="text-xs text-gray-400">Country</div>
-                <div id="selected-country" class="text-sm font-medium text-white">-</div>
-            </div>
-        </div>
-        <div class="flex items-center space-x-2 bg-slate-800/40 p-3 rounded-lg border border-slate-700/30">
-            <i class="fas fa-network-wired text-indigo-400/70 w-5 text-center"></i>
-            <div>
-                <div class="text-xs text-gray-400">IP</div>
-                <div id="selected-ip" class="text-sm font-medium text-white">-</div>
-            </div>
-        </div>
-        <div class="flex items-center space-x-2 bg-slate-800/40 p-3 rounded-lg border border-slate-700/30">
-            <i class="fas fa-plug text-indigo-400/70 w-5 text-center"></i>
-            <div>
-                <div class="text-xs text-gray-400">Port</div>
-                <div id="selected-port" class="text-sm font-medium text-white">-</div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="proxy-status-container" class="hidden">
-        <div id="proxy-status-active" class="hidden rounded-lg p-3 bg-gradient-to-r from-emerald-900/20 to-emerald-800/10 border border-emerald-500/20">
-            <div class="flex items-center">
-                <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center mr-3 border border-emerald-500/30">
-                    <i class="fas fa-check text-emerald-400"></i>
-                </div>
-                <div>
-                    <div class="text-sm font-medium text-emerald-400">ACTIVE</div>
-                    <div class="text-xs text-gray-400">Latency: <span id="proxy-latency" class="text-amber-400">0ms</span></div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="proxy-status-dead" class="hidden rounded-lg p-3 bg-gradient-to-r from-rose-900/20 to-rose-800/10 border border-rose-500/20">
-            <div class="flex items-center">
-                <div class="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center mr-3 border border-rose-500/30">
-                    <i class="fas fa-times text-rose-500"></i>
-                </div>
-                <div>
-                    <div class="text-sm font-medium text-rose-500">DEAD</div>
-                    <div class="text-xs text-gray-400">This proxy may not be working</div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="proxy-status-unknown" class="hidden rounded-lg p-3 bg-gradient-to-r from-amber-900/20 to-amber-800/10 border border-amber-500/20">
-            <div class="flex items-center">
-                <div class="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center mr-3 border border-amber-500/30">
-                    <i class="fas fa-question text-amber-400"></i>
-                </div>
-                <div>
-                    <div class="text-sm font-medium text-amber-400">UNKNOWN</div>
-                    <div class="text-xs text-gray-400">Could not check proxy status</div>
-                </div>
-            </div>
-        </div>
-        
-        
-<div id="proxy-status-loading" class="rounded-lg p-3 bg-gradient-to-r from-indigo-900/20 to-indigo-800/10 border border-indigo-500/20">
-    <div class="flex items-center">
-        <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center mr-3 border border-indigo-500/30">
-            <div class="loading-spinner-sm"></div>
-        </div>
-        <div>
-            <div class="text-sm font-medium text-indigo-400">CHECKING</div>
-            <div class="text-xs text-gray-400">Verifying proxy status...</div>
-        </div>
-    </div>
-</div>
-    </div>
-</div>
+                    <div class="card p-5 mb-6">
+                        <h3 class="text-base font-medium text-indigo-400 mb-4 flex items-center">
+                            <i class="fas fa-server mr-2"></i>
+                            Selected Proxy
+                        </h3>
+                        
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div class="flex items-center space-x-2 bg-slate-800/30 p-3 rounded-lg border border-slate-700/20">
+                                <i class="fas fa-building text-indigo-400/70 w-5 text-center"></i>
+                                <div>
+                                    <div class="text-xs text-gray-400">Provider</div>
+                                    <div id="selected-provider" class="text-sm font-medium text-white">-</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-slate-800/30 p-3 rounded-lg border border-slate-700/20">
+                                <i class="fas fa-globe-americas text-indigo-400/70 w-5 text-center"></i>
+                                <div>
+                                    <div class="text-xs text-gray-400">Country</div>
+                                    <div id="selected-country" class="text-sm font-medium text-white">-</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-slate-800/30 p-3 rounded-lg border border-slate-700/20">
+                                <i class="fas fa-network-wired text-indigo-400/70 w-5 text-center"></i>
+                                <div>
+                                    <div class="text-xs text-gray-400">IP</div>
+                                    <div id="selected-ip" class="text-sm font-medium text-white">-</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-slate-800/30 p-3 rounded-lg border border-slate-700/20">
+                                <i class="fas fa-plug text-indigo-400/70 w-5 text-center"></i>
+                                <div>
+                                    <div class="text-xs text-gray-400">Port</div>
+                                    <div id="selected-port" class="text-sm font-medium text-white">-</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="proxy-status-container" class="hidden">
+                            <div id="proxy-status-active" class="hidden rounded-lg p-3 status-active">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center mr-3 border border-emerald-500/20">
+                                        <i class="fas fa-check text-emerald-400"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-emerald-400">ACTIVE</div>
+                                        <div class="text-xs text-gray-400">Latency: <span id="proxy-latency" class="text-amber-400">0ms</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="proxy-status-dead" class="hidden rounded-lg p-3 status-dead">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center mr-3 border border-rose-500/20">
+                                        <i class="fas fa-times text-rose-500"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-rose-500">DEAD</div>
+                                        <div class="text-xs text-gray-400">This proxy may not be working</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="proxy-status-unknown" class="hidden rounded-lg p-3 status-unknown">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center mr-3 border border-amber-500/20">
+                                        <i class="fas fa-question text-amber-400"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-amber-400">UNKNOWN</div>
+                                        <div class="text-xs text-gray-400">Could not check proxy status</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="proxy-status-loading" class="rounded-lg p-3 bg-indigo-900/10 border border-indigo-500/20">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center mr-3 border border-indigo-500/20">
+                                        <div class="loading-spinner-sm"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-indigo-400">CHECKING</div>
+                                        <div class="text-xs text-gray-400">Verifying proxy status...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <!-- Tabs -->
                     <div class="flex border-b border-gray-700 mb-6 overflow-x-auto space-x-1 sm:space-x-0">
-                        <button class="tab-btn active py-3 px-4 font-medium text-sm focus:outline-none" data-target="vmess-form">
+                        <button class="tab active py-3 px-4 font-medium text-sm focus:outline-none" data-target="vmess-form">
                             <i class="fas fa-shield-alt mr-2"></i>VMess
                         </button>
-                        <button class="tab-btn py-3 px-4 font-medium text-sm focus:outline-none" data-target="vless-form">
+                        <button class="tab py-3 px-4 font-medium text-sm focus:outline-none" data-target="vless-form">
                             <i class="fas fa-bolt mr-2"></i>VLESS
                         </button>
-                        <button class="tab-btn py-3 px-4 font-medium text-sm focus:outline-none" data-target="trojan-form">
+                        <button class="tab py-3 px-4 font-medium text-sm focus:outline-none" data-target="trojan-form">
                             <i class="fas fa-user-secret mr-2"></i>Trojan
                         </button>
-                        <button class="tab-btn py-3 px-4 font-medium text-sm focus:outline-none" data-target="ss-form">
+                        <button class="tab py-3 px-4 font-medium text-sm focus:outline-none" data-target="ss-form">
                             <i class="fas fa-mask mr-2"></i>SS
                         </button>
                     </div>
@@ -863,14 +533,14 @@
                         <form id="vmess-account-form" class="space-y-5">
                             <div>
                                 <label for="vmess-name" class="block text-sm font-medium text-gray-300 mb-2">Account Name</label>
-                                <input type="text" id="vmess-name" name="name" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="vmess-name" name="name" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="vmess-uuid" class="block text-sm font-medium text-gray-300 mb-2">UUID</label>
                                 <div class="flex">
-                                    <input type="text" id="vmess-uuid" name="uuid" class="flex-1 px-4 py-2.5 glass-input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
-                                    <button type="button" onclick="generateUUID('vmess-uuid')" class="secondary-btn px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
+                                    <input type="text" id="vmess-uuid" name="uuid" class="flex-1 px-4 py-2.5 input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
+                                    <button type="button" onclick="generateUUID('vmess-uuid')" class="btn-secondary px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
                                         <i class="fas fa-sync-alt"></i>
                                     </button>
                                 </div>
@@ -878,12 +548,12 @@
                             
                             <div>
                                 <label for="vmess-path" class="block text-sm font-medium text-gray-300 mb-2">Path</label>
-                                <input type="text" id="vmess-path" name="path" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="vmess-path" name="path" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="vmess-security" class="block text-sm font-medium text-gray-300 mb-2">TLS</label>
-                                <select id="vmess-security" name="security" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="vmess-security" name="security" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <option value="tls">TLS</option>
                                     <option value="none">None</option>
                                 </select>
@@ -892,14 +562,14 @@
                             
                             <div>
                                 <label for="vmess-server-domain" class="block text-sm font-medium text-gray-300 mb-2">Server Domain</label>
-                                <select id="vmess-server-domain" name="server-domain" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="vmess-server-domain" name="server-domain" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
                             
                             <div>
                                 <label for="vmess-bug" class="block text-sm font-medium text-gray-300 mb-2">Custom Bug <span class="text-xs text-gray-500">(opsional)</span></label>
-                                <input type="text" id="vmess-bug" name="bug" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" placeholder="e.g. bug.com">
+                                <input type="text" id="vmess-bug" name="bug" class="w-full px-4 py-2.5 input rounded-lg text-sm" placeholder="e.g. bug.com">
                                 <div id="vmess-wildcard-container" class="wildcard-container">
                                     <div class="checkbox-container">
                                         <input type="checkbox" id="vmess-wildcard" name="wildcard">
@@ -909,7 +579,7 @@
                             </div>
                             
                             <div class="pt-2">
-                                <button type="submit" class="w-full primary-btn py-3 px-4 rounded-lg flex items-center justify-center">
+                                <button type="submit" class="w-full btn-primary py-3 px-4 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-plus-circle mr-2"></i> Create VMess Account
                                 </button>
                             </div>
@@ -921,14 +591,14 @@
                         <form id="vless-account-form" class="space-y-5">
                             <div>
                                 <label for="vless-name" class="block text-sm font-medium text-gray-300 mb-2">Account Name</label>
-                                <input type="text" id="vless-name" name="name" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="vless-name" name="name" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="vless-uuid" class="block text-sm font-medium text-gray-300 mb-2">UUID</label>
                                 <div class="flex">
-                                    <input type="text" id="vless-uuid" name="uuid" class="flex-1 px-4 py-2.5 glass-input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
-                                    <button type="button" onclick="generateUUID('vless-uuid')" class="secondary-btn px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
+                                    <input type="text" id="vless-uuid" name="uuid" class="flex-1 px-4 py-2.5 input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
+                                    <button type="button" onclick="generateUUID('vless-uuid')" class="btn-secondary px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
                                         <i class="fas fa-sync-alt"></i>
                                     </button>
                                 </div>
@@ -936,12 +606,12 @@
                             
                             <div>
                                 <label for="vless-path" class="block text-sm font-medium text-gray-300 mb-2">Path</label>
-                                <input type="text" id="vless-path" name="path" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="vless-path" name="path" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="vless-security" class="block text-sm font-medium text-gray-300 mb-2">TLS</label>
-                                <select id="vless-security" name="security" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="vless-security" name="security" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <option value="tls">TLS</option>
                                     <option value="none">None</option>
                                 </select>
@@ -950,14 +620,14 @@
                             
                             <div>
                                 <label for="vless-server-domain" class="block text-sm font-medium text-gray-300 mb-2">Server Domain</label>
-                                <select id="vless-server-domain" name="server-domain" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="vless-server-domain" name="server-domain" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
                             
                             <div>
                                 <label for="vless-bug" class="block text-sm font-medium text-gray-300 mb-2">Custom Bug <span class="text-xs text-gray-500">(opsional)</span></label>
-                                <input type="text" id="vless-bug" name="bug" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" placeholder="e.g. bug.com">
+                                <input type="text" id="vless-bug" name="bug" class="w-full px-4 py-2.5 input rounded-lg text-sm" placeholder="e.g. bug.com">
                                 <div id="vless-wildcard-container" class="wildcard-container">
                                     <div class="checkbox-container">
                                         <input type="checkbox" id="vless-wildcard" name="wildcard">
@@ -967,7 +637,7 @@
                             </div>
                             
                             <div class="pt-2">
-                                <button type="submit" class="w-full primary-btn py-3 px-4 rounded-lg flex items-center justify-center">
+                                <button type="submit" class="w-full btn-primary py-3 px-4 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-plus-circle mr-2"></i> Create VLESS Account
                                 </button>
                             </div>
@@ -979,14 +649,14 @@
                         <form id="trojan-account-form" class="space-y-5">
                             <div>
                                 <label for="trojan-name" class="block text-sm font-medium text-gray-300 mb-2">Account Name</label>
-                                <input type="text" id="trojan-name" name="name" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="trojan-name" name="name" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="trojan-password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
                                 <div class="flex">
-                                    <input type="text" id="trojan-password" name="password" class="flex-1 px-4 py-2.5 glass-input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
-                                    <button type="button" onclick="generatePassword('trojan-password')" class="secondary-btn px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
+                                    <input type="text" id="trojan-password" name="password" class="flex-1 px-4 py-2.5 input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
+                                    <button type="button" onclick="generatePassword('trojan-password')" class="btn-secondary px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
                                         <i class="fas fa-sync-alt"></i>
                                     </button>
                                 </div>
@@ -994,28 +664,28 @@
                             
                             <div>
                                 <label for="trojan-path" class="block text-sm font-medium text-gray-300 mb-2">Path</label>
-                                <input type="text" id="trojan-path" name="path" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="trojan-path" name="path" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="trojan-security" class="block text-sm font-medium text-gray-300 mb-2">TLS</label>
-                                <select id="trojan-security" name="security" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="trojan-security" name="security" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <option value="tls">TLS</option>
                                     <option value="none">None</option>
                                 </select>
-                                <input type="hidden" id="trojan-sni" name="sni" value="inconigto-mode.web.id">
+                                <input type="hidden" id="trojan-sni" name="sni" value="v.vles.tech">
                             </div>
                             
                             <div>
                                 <label for="trojan-server-domain" class="block text-sm font-medium text-gray-300 mb-2">Server Domain</label>
-                                <select id="trojan-server-domain" name="server-domain" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="trojan-server-domain" name="server-domain" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
                             
                             <div>
                                 <label for="trojan-bug" class="block text-sm font-medium text-gray-300 mb-2">Custom Bug <span class="text-xs text-gray-500">(opsional)</span></label>
-                                <input type="text" id="trojan-bug" name="bug" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" placeholder="e.g. bug.com">
+                                <input type="text" id="trojan-bug" name="bug" class="w-full px-4 py-2.5 input rounded-lg text-sm" placeholder="e.g. bug.com">
                                 <div id="trojan-wildcard-container" class="wildcard-container">
                                     <div class="checkbox-container">
                                         <input type="checkbox" id="trojan-wildcard" name="wildcard">
@@ -1025,7 +695,7 @@
                             </div>
                             
                             <div class="pt-2">
-                                <button type="submit" class="w-full primary-btn py-3 px-4 rounded-lg flex items-center justify-center">
+                                <button type="submit" class="w-full btn-primary py-3 px-4 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-plus-circle mr-2"></i> Create Trojan Account
                                 </button>
                             </div>
@@ -1037,14 +707,14 @@
                         <form id="ss-account-form" class="space-y-5">
                             <div>
                                 <label for="ss-name" class="block text-sm font-medium text-gray-300 mb-2">Account Name</label>
-                                <input type="text" id="ss-name" name="name" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="ss-name" name="name" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="ss-password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
                                 <div class="flex">
-                                    <input type="text" id="ss-password" name="password" class="flex-1 px-4 py-2.5 glass-input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
-                                    <button type="button" onclick="generatePassword('ss-password')" class="secondary-btn px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
+                                    <input type="text" id="ss-password" name="password" class="flex-1 px-4 py-2.5 input rounded-l-lg text-sm" value="00000000-0000-0000-0000-000000000000" required>
+                                    <button type="button" onclick="generatePassword('ss-password')" class="btn-secondary px-4 py-2.5 rounded-r-lg hover:bg-slate-700">
                                         <i class="fas fa-sync-alt"></i>
                                     </button>
                                 </div>
@@ -1052,12 +722,12 @@
                             
                             <div>
                                 <label for="ss-path" class="block text-sm font-medium text-gray-300 mb-2">Path</label>
-                                <input type="text" id="ss-path" name="path" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" readonly>
+                                <input type="text" id="ss-path" name="path" class="w-full px-4 py-2.5 input rounded-lg text-sm" readonly>
                             </div>
                             
                             <div>
                                 <label for="ss-security" class="block text-sm font-medium text-gray-300 mb-2">TLS</label>
-                                <select id="ss-security" name="security" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="ss-security" name="security" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <option value="tls">TLS</option>
                                     <option value="none">None</option>
                                 </select>
@@ -1065,14 +735,14 @@
                             
                             <div>
                                 <label for="ss-server-domain" class="block text-sm font-medium text-gray-300 mb-2">Server Domain</label>
-                                <select id="ss-server-domain" name="server-domain" class="w-full px-4 py-2.5 glass-select rounded-lg text-sm">
+                                <select id="ss-server-domain" name="server-domain" class="w-full px-4 py-2.5 select rounded-lg text-sm">
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
                             
                             <div>
                                 <label for="ss-bug" class="block text-sm font-medium text-gray-300 mb-2">Custom Bug <span class="text-xs text-gray-500">(opsional)</span></label>
-                                <input type="text" id="ss-bug" name="bug" class="w-full px-4 py-2.5 glass-input rounded-lg text-sm" placeholder="e.g. bug.com">
+                                <input type="text" id="ss-bug" name="bug" class="w-full px-4 py-2.5 input rounded-lg text-sm" placeholder="e.g. bug.com">
                                 <div id="ss-wildcard-container" class="wildcard-container">
                                     <div class="checkbox-container">
                                         <input type="checkbox" id="ss-wildcard" name="wildcard">
@@ -1082,7 +752,7 @@
                             </div>
                             
                             <div class="pt-2">
-                                <button type="submit" class="w-full primary-btn py-3 px-4 rounded-lg flex items-center justify-center">
+                                <button type="submit" class="w-full btn-primary py-3 px-4 rounded-lg flex items-center justify-center">
                                     <i class="fas fa-plus-circle mr-2"></i> Create Shadowsocks Account
                                 </button>
                             </div>
@@ -1105,17 +775,17 @@
                         </button>
                     </div>
                     
-                    <div class="glass-card p-5 mb-5">
+                    <div class="card p-5 mb-5">
                         <div class="flex justify-between items-center mb-3">
                             <h3 class="text-base font-medium text-indigo-400">Connection URL</h3>
                             <button id="copy-url" class="flex items-center text-indigo-400 hover:text-indigo-300 text-xs transition-colors">
                                 <i class="far fa-copy mr-1"></i> Copy
                             </button>
                         </div>
-                        <div id="connection-url" class="text-xs glass-code p-4 rounded-lg break-all font-mono"></div>
+                        <div id="connection-url" class="text-xs code p-4 rounded-lg break-all font-mono"></div>
                     </div>
                     
-                    <div class="glass-card p-5">
+                    <div class="card p-5">
                         <div class="flex justify-between items-center mb-3">
                             <h3 class="text-base font-medium text-indigo-400">QR Code</h3>
                             <button id="download-qr" class="flex items-center text-indigo-400 hover:text-indigo-300 text-xs transition-colors">
@@ -1128,10 +798,10 @@
                     </div>
                     
                     <div class="mt-6 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-                        <button id="create-new" class="flex-1 primary-btn py-3 px-4 rounded-lg flex items-center justify-center text-sm">
+                        <button id="create-new" class="flex-1 btn-primary py-3 px-4 rounded-lg flex items-center justify-center text-sm">
                             <i class="fas fa-plus-circle mr-2"></i> Create Another
                         </button>
-                        <button id="back-to-list-from-result" class="flex-1 secondary-btn py-3 px-4 rounded-lg flex items-center justify-center text-sm">
+                        <button id="back-to-list-from-result" class="flex-1 btn-secondary py-3 px-4 rounded-lg flex items-center justify-center text-sm">
                             <i class="fas fa-list mr-2"></i> Back to List
                         </button>
                     </div>
@@ -1141,86 +811,61 @@
     </div>
     <footer class="mt-8 pb-6">
     <div class="divider mb-6"></div>
-    <div class="relative overflow-hidden rounded-xl p-6 bg-slate-800/30 backdrop-blur-sm border border-slate-700/30">
-        <div class="absolute top-0 right-0 w-40 h-40 bg-indigo-500/5 rounded-bl-full pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-40 h-40 bg-emerald-500/5 rounded-tr-full pointer-events-none"></div>
-        
+    <div class="footer p-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center">
                 <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center mr-3 border border-indigo-500/20">
-                    <i class="fas fa-network-wired text-lg icon-glow text-indigo-400"></i>
+                    <i class="fas fa-network-wired text-lg text-indigo-400"></i>
                 </div>
-                <span class="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">Inconigto-Mode</span>
+                <span class="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">KuyShare- V2Ray</span>
             </div>
             
-            
             <div class="flex gap-4">
-                <a href="#" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
-                    <i class="fab fa-github"></i>
+                <a href="://facebook.com/rilisanterbaru" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
+                    <i class="fab fa-facebook"></i>
                 </a>
-                <a href="https://t.me/InconigtoMode" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
+                <a href="https://t.me/kuyshare" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
                     <i class="fab fa-telegram"></i>
                 </a>
-                <a href="https://t.me/Noir7R" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="https://t.me/Inconigto_Mode" class="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-slate-700 transition-all">
-                    <i class="fab fa-telegram"></i>
-                </a>
-
             </div>
         </div>
         
         <div class="h-px bg-gradient-to-r from-transparent via-slate-600/20 to-transparent my-5"></div>
         
         <div class="text-center text-gray-500 text-xs">
-            <p>© 2025 Inconigto-Mode | Secure Connection Technology</p>
+            <p>© 2025 KuyShare - V2Ray</p>
             <p class="mt-1 flex items-center justify-center">
                 Dibuat dengan 
-                <i class="fas fa-heart text-rose-500 mx-1 animate-pulse"></i> 
+                <i class="fas fa-heart text-rose-500 mx-1"></i> 
                 untuk privasi online Anda
             </p>
         </div>
-    
-</div>
+    </div>
 </footer>
 </div>
 
 <div id="donation-button" class="fixed bottom-6 right-6 z-[1000]">
-    <button class="w-14 h-14 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 pulse-animation">
-        <i class="fas fa-hand-holding-heart text-white text-xl"></i>
+    <button class="w-12 h-12 rounded-full donation-btn flex items-center justify-center shadow-lg">
+        <i class="fas fa-hand-holding-heart text-white text-lg"></i>
     </button>
 </div>
 
 <!-- QR Code Donation Modal -->
 <div id="donation-modal" class="fixed inset-0 z-[1001] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-    <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm" id="donation-backdrop"></div>
-    <div class="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-1 max-w-md w-full transform scale-95 transition-all duration-300" id="donation-content">
-        <!-- Animated border -->
-        <div class="absolute inset-0 rounded-2xl overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-spin-slow opacity-70"></div>
+    <div class="absolute inset-0 modal-backdrop" id="donation-backdrop"></div>
+    <div class="relative modal-content p-6 max-w-md w-full transform scale-95 transition-all duration-300" id="donation-content">
+        <button id="close-donation" class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 hover:bg-slate-700 text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <h3 class="text-xl font-bold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Suppor:</h3>
+        <p class="text-gray-400 text-sm mb-4 text-center">Your donation helps keep our services running</p>
+        
+        <div class="p-3 bg-white rounded-xl mb-4">
+            <img src="https://telegra.ph/file/1e30ae8616d1fd0bc3c48.png" alt="Donation QR Code" class="w-full h-auto max-w-xs mx-auto">
         </div>
         
-        <div class="relative bg-slate-900 rounded-xl p-6 flex flex-col items-center">
-            <button id="close-donation" class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 hover:bg-slate-700 text-gray-400 hover:text-white transition-colors">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <h3 class="text-xl font-bold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Support Inconigto-Mode</h3>
-            <p class="text-gray-400 text-sm mb-4 text-center">Your donation helps keep our services running</p>
-            
-            <div class="qris-container p-3 bg-white rounded-xl mb-4 relative overflow-hidden">
-                <!-- Inner animated border -->
-                <div class="absolute inset-0 p-2">
-                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-pulse rounded-lg opacity-70"></div>
-                </div>
-                <div class="relative bg-white p-2 rounded-lg">
-                    <img src="https://raw.githubusercontent.com/InconigtoMode/proxylist/refs/heads/main/qris.png" alt="Donation QR Code" class="w-full h-auto max-w-xs mx-auto">
-                </div>
-            </div>
-            
-            <p class="text-gray-400 text-xs text-center">Scan this QR code with your payment app to donate</p>
-        </div>
+        <p class="text-gray-400 text-xs text-center">Scan this QR code with your payment app to donate</p>
     </div>
 </div>
 
@@ -1229,12 +874,8 @@
 let proxyList = [];
 let filteredProxyList = [];
 let selectedProxy = null;
-const defaultProxyUrl = 'https://raw.githubusercontent.com/InconigtoMode/proxylist/refs/heads/main/all.txt';
-// Change from:
-// const serverDomain = 'inconigto-mode.web.id';
-
-// To:
-const serverDomains = ['inconigto-mode.web.id', 'inconigto-mode.biz.id'];
+const defaultProxyUrl = 'https://proxy.kuyshare.eu.org/active.txt';
+const serverDomains = ['v.vles.tech'];
 let selectedServerDomain = serverDomains[0]; // Default to first domain
 const defaultUUID = '00000000-0000-0000-0000-000000000000';
 const itemsPerPage = 10;
@@ -1313,7 +954,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Protocol tabs
-    const protocolTabs = document.querySelectorAll('.tab-btn');
+    const protocolTabs = document.querySelectorAll('.tab');
     const protocolForms = document.querySelectorAll('.protocol-form');
     
     protocolTabs.forEach(tab => {
@@ -1500,7 +1141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Display the result
             document.getElementById('connection-url').textContent = connectionUrl;
             
-            // Generate QR code - Improved with multiple fallback methods
+            // Generate QR code
             generateQRCode(connectionUrl);
             
             // Show result section
@@ -1524,16 +1165,43 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('download-qr').addEventListener('click', function() {
         downloadQRCode();
     });
+    
+    // Donation modal
+    const donationButton = document.getElementById('donation-button');
+    const donationModal = document.getElementById('donation-modal');
+    const donationContent = document.getElementById('donation-content');
+    const donationBackdrop = document.getElementById('donation-backdrop');
+    const closeButton = document.getElementById('close-donation');
+    
+    donationButton.addEventListener('click', function() {
+        donationModal.classList.remove('opacity-0', 'pointer-events-none');
+        donationModal.classList.add('opacity-100');
+        setTimeout(() => {
+            donationContent.classList.remove('scale-95');
+            donationContent.classList.add('scale-100');
+        }, 10);
+    });
+    
+    closeButton.addEventListener('click', function() {
+        donationContent.classList.remove('scale-100');
+        donationContent.classList.add('scale-95');
+        setTimeout(() => {
+            donationModal.classList.remove('opacity-100');
+            donationModal.classList.add('opacity-0', 'pointer-events-none');
+        }, 200);
+    });
+    
+    donationBackdrop.addEventListener('click', function() {
+        closeButton.click();
+    });
 });
 
-// Improved QR code generation with multiple fallback methods
+// QR code generation
 function generateQRCode(text) {
     const qrcodeElement = document.getElementById('qrcode');
     qrcodeElement.innerHTML = '';
     
-    // Try multiple methods to generate QR code
     try {
-        // Method 1: Try to generate QR code using toCanvas
         QRCode.toCanvas(qrcodeElement, text, { 
             width: 200,
             margin: 1,
@@ -1544,21 +1212,18 @@ function generateQRCode(text) {
         }, function(error) {
             if (error) {
                 console.error("QR Code canvas error:", error);
-                // If canvas fails, try method 2
                 generateQRCodeFallback(text, qrcodeElement);
             }
         });
     } catch (error) {
         console.error("QR Code generation error:", error);
-        // If method 1 fails completely, try method 2
         generateQRCodeFallback(text, qrcodeElement);
     }
 }
 
-// Fallback QR code generation method
+// Fallback QR code generation
 function generateQRCodeFallback(text, container) {
     try {
-        // Method 2: Try to generate QR code as SVG
         QRCode.toString(text, {
             type: 'svg',
             width: 200,
@@ -1570,7 +1235,6 @@ function generateQRCodeFallback(text, container) {
         }, function(error, svg) {
             if (error || !svg) {
                 console.error("QR Code SVG error:", error);
-                // If SVG fails, try method 3
                 generateQRCodeLastResort(text, container);
             } else {
                 container.innerHTML = svg;
@@ -1578,15 +1242,13 @@ function generateQRCodeFallback(text, container) {
         });
     } catch (error) {
         console.error("QR Code SVG generation error:", error);
-        // If method 2 fails completely, try method 3
         generateQRCodeLastResort(text, container);
     }
 }
 
-// Last resort QR code generation method
+// Last resort QR code generation
 function generateQRCodeLastResort(text, container) {
     try {
-        // Method 3: Try to generate QR code as data URL
         const encodedText = encodeURIComponent(text);
         const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}`;
         
@@ -1670,12 +1332,7 @@ function displayFallbackProxyList() {
         { ip: '172.67.182.77', port: '443', country: 'JP', provider: 'Japan Telecom' },
         { ip: '104.21.70.123', port: '8080', country: 'SG', provider: 'Singapore Telecom' },
         { ip: '185.219.133.45', port: '3128', country: 'DE', provider: 'Deutsche Telekom' },
-        { ip: '45.8.105.26', port: '80', country: 'FR', provider: 'Orange France' },
-        { ip: '172.67.183.98', port: '443', country: 'CA', provider: 'Bell Canada' },
-        { ip: '104.21.71.205', port: '8080', country: 'AU', provider: 'Telstra Australia' },
-        { ip: '185.219.134.67', port: '3128', country: 'IT', provider: 'Telecom Italia' },
-        { ip: '45.8.104.83', port: '80', country: 'BR', provider: 'Brazil Telecom' },
-        { ip: '172.67.184.12', port: '443', country: 'RU', provider: 'Russian Telecom' }
+        { ip: '45.8.105.26', port: '80', country: 'FR', provider: 'Orange France' }
     ];
     
     filteredProxyList = [...proxyList];
@@ -1776,8 +1433,6 @@ function renderProxyList() {
         const infoDiv = document.createElement('div');
         infoDiv.className = 'flex-1 min-w-0 pr-2'; // min-w-0 helps with text truncation
 
-        // Replace the provider container creation code in the renderProxyList function with this:
-
         // Provider and status badge container
         const providerContainer = document.createElement('div');
         providerContainer.className = 'flex-items-center';
@@ -1795,11 +1450,11 @@ function renderProxyList() {
 
         // Status badge (initially loading)
         const statusBadge = document.createElement('span');
-        statusBadge.className = 'inline-block w-3 h-3 rounded-full bg-gray-500 ml-2 pulse-animation';
+        statusBadge.className = 'inline-block w-3 h-3 rounded-full bg-gray-500 ml-2';
         statusBadge.style.flexShrink = '0';
         statusBadge.style.position = 'relative';
         statusBadge.innerHTML = '';
-        statusBadge.title = 'Memeriksa...';
+        statusBadge.title = 'Checking...';
         statusBadge.id = `proxy-status-${actualIndex}`;
         providerContainer.appendChild(statusBadge);
 
@@ -1820,7 +1475,7 @@ function renderProxyList() {
         buttonDiv.style.flexShrink = '0'; // Prevent shrinking
 
         const button = document.createElement('button');
-        button.className = 'create-account-btn primary-btn py-2 px-4 rounded-lg text-xs';
+        button.className = 'create-account-btn btn-primary py-2 px-4 rounded-lg text-xs';
         button.style.whiteSpace = 'nowrap';
         button.style.minWidth = '60px';
         button.setAttribute('data-index', actualIndex);
@@ -1864,17 +1519,17 @@ function checkProxyStatusInList(proxy, statusBadge) {
             if (data.proxyip === true) {
                 statusBadge.className = 'inline-block w-3 h-3 rounded-full bg-emerald-500 ml-2';
                 statusBadge.innerHTML = '';
-                statusBadge.title = 'Aktif';
+                statusBadge.title = 'Active';
             } else {
                 statusBadge.className = 'inline-block w-3 h-3 rounded-full bg-rose-500 ml-2';
                 statusBadge.innerHTML = '';
-                statusBadge.title = 'Mati';
+                statusBadge.title = 'Dead';
             }
         })
         .catch(error => {
             statusBadge.className = 'inline-block w-3 h-3 rounded-full bg-amber-500 ml-2';
             statusBadge.innerHTML = '';
-            statusBadge.title = 'Tidak diketahui';
+            statusBadge.title = 'Unknown';
             console.error("Fetch error:", error);
         });
 }
@@ -1986,7 +1641,7 @@ async function selectProxy(index) {
     
     // Update form fields
     const accountName = `${selectedProxy.country} - ${selectedProxy.provider}`;
-    const path = `/Inconigto-Mode/${selectedProxy.ip}-${selectedProxy.port}`;
+    const path = `/${selectedProxy.ip}-${selectedProxy.port}`;
     
     document.getElementById('vmess-name').value = accountName;
     document.getElementById('vless-name').value = accountName;
@@ -2012,7 +1667,6 @@ async function selectProxy(index) {
     const statusActive = document.getElementById('proxy-status-active');
     const statusDead = document.getElementById('proxy-status-dead');
     const statusUnknown = document.getElementById('proxy-status-unknown');
-    const latencyElement = document.getElementById('proxy-latency');
     
     // Show status container and loading state
     statusContainer.classList.remove('hidden');
@@ -2090,110 +1744,31 @@ function generatePassword(elementId) {
     document.getElementById(elementId).value = defaultUUID;
 }
 
-// Update the loadProxyList function to better handle GitHub data and CORS issues
+// Load proxy list function
 function loadProxyList(url) {
     // Show loading indicator
     loadingIndicator.classList.remove('hidden');
     proxyListContainer.innerHTML = '';
     noProxiesMessage.classList.add('hidden');
     
-    // Try multiple CORS proxies in sequence
-    const corsProxies = [
-        // Direct fetch (no proxy)
-        async () => {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Direct fetch failed');
-            return await response.text();
-        },
-        // CORS Anywhere proxy
-        async () => {
-            const corsUrl = `https://cors-anywhere.herokuapp.com/${url}`;
-            const response = await fetch(corsUrl);
-            if (!response.ok) throw new Error('CORS Anywhere proxy failed');
-            return await response.text();
-        },
-        // AllOrigins proxy
-        async () => {
-            const corsUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-            const response = await fetch(corsUrl);
-            if (!response.ok) throw new Error('AllOrigins proxy failed');
-            const data = await response.json();
-            return data.contents;
-        },
-        // CORS.sh proxy
-        async () => {
-            const corsUrl = `https://cors.sh/${url}`;
-            const response = await fetch(corsUrl, {
-                headers: {
-                    'x-cors-api-key': 'temp_' + Math.random().toString(36).substring(2,12),
-                }
-            });
-            if (!response.ok) throw new Error('CORS.sh proxy failed');
-            return await response.text();
-        }
-    ];
-    
-    // Try each proxy in sequence
-    (async function tryProxies(index = 0) {
-        if (index >= corsProxies.length) {
-            console.error('All proxies failed');
-            loadingIndicator.classList.add('hidden');
-            noProxiesMessage.classList.remove('hidden');
-            // Fall back to sample data
-            displayFallbackProxyList();
-            return;
-        }
-        
-        try {
-            const text = await corsProxies[index]();
-            console.log("Fetched data:", text.substring(0, 200) + "..."); // Debug log (truncated)
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(text => {
             processProxyData(text);
             loadingIndicator.classList.add('hidden');
-        } catch (error) {
-            console.error(`Proxy ${index} failed:`, error);
-            // Try next proxy
-            tryProxies(index + 1);
-        }
-    })();
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            loadingIndicator.classList.add('hidden');
+            // Fall back to sample data
+            displayFallbackProxyList();
+        });
 }
-
-// Donation modal functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const donationButton = document.getElementById('donation-button');
-    const donationModal = document.getElementById('donation-modal');
-    const donationContent = document.getElementById('donation-content');
-    const donationBackdrop = document.getElementById('donation-backdrop');
-    const closeButton = document.getElementById('close-donation');
-    
-    function openDonationModal() {
-        // Show the modal
-        donationModal.classList.remove('opacity-0', 'pointer-events-none');
-        donationModal.classList.add('opacity-100');
-        
-        // Animate the content
-        setTimeout(() => {
-            donationContent.classList.remove('scale-95');
-            donationContent.classList.add('scale-100');
-        }, 10);
-    }
-    
-    function closeDonationModal() {
-        // Animate the content
-        donationContent.classList.remove('scale-100');
-        donationContent.classList.add('scale-95');
-        
-        // Hide the modal
-        setTimeout(() => {
-            donationModal.classList.remove('opacity-100');
-            donationModal.classList.add('opacity-0', 'pointer-events-none');
-        }, 200);
-    }
-    
-    // Event listeners
-    donationButton.addEventListener('click', openDonationModal);
-    closeButton.addEventListener('click', closeDonationModal);
-    donationBackdrop.addEventListener('click', closeDonationModal);
-});
 </script>
 </body>
 </html>
